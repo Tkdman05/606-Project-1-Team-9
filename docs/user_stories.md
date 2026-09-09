@@ -43,3 +43,10 @@ Acceptance criteria:
 - User can select a recipe to generate shopping list
 - System identifies missing ingredients (not marked as available)
 - Shopping list displays only missing ingredients
+
+9. As a cook, I want to receive clear error messages when entering invalid recipe data so that I can understand what needs to be corrected without needing prior knowledg\
+Acceptance criteria: (Examples, there are many more)
+- System rejects empty recipe names with error message
+- System validates cooking time is a positive number
+- System requires at least one ingredient
+- User can retry input after error without losing other entered data
