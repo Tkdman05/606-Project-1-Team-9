@@ -8,7 +8,7 @@ Tasks:To Do
 - Create built-in recipes data file
 - Load and display built-in recipes
 
-### Essential Story 4: As a cook, I want to search for recipes by name so that I can quickly find specific recipes
+### Essential Story 3: As a cook, I want to search for recipes by name so that I can quickly find specific recipes
 Tasks:To Do
 - Implement recipe name search
 - Create search UI and results display
