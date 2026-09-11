@@ -1,6 +1,6 @@
 ### 1. As a home cook, I want to add my own recipes to the page so that I can keep my favorite recipes in one place
 - Given I am a home cook
-- And I am making mac & cheese
+- And I am adding the recipe for mac & cheese
 - When I enter the recipe information
 - Then I should see the recipe appear on the recipe list
 
@@ -38,7 +38,7 @@
 - Given I am a home cook
 - And I am looking at the ingredient list
 - When I click on an ingredient
-- Then the ingredient should be marked abset
+- Then the ingredient should be marked absent
 
 ### 8. As a home cook, I want to generate a shopping list for a specific recipe so that I can know exactly what to buy at the store
 - Given I am a home cook
