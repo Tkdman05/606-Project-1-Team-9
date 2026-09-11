@@ -74,7 +74,8 @@ recipes = [
 
 get '/' do
   search = params[:search]
-  ingredient = params[:ingredient]
+  selected_ingredients = params[:ingredients] || []
+  max_time = params[:max_time]
 
   filtered_recipes = recipes
 
@@ -85,16 +86,31 @@ get '/' do
     end
   end
 
-  # Filter by ingredient
-  if ingredient && !ingredient.strip.empty?
+  # Filter by ingredients
+  unless selected_ingredients.empty?
     filtered_recipes = filtered_recipes.select do |recipe|
-      recipe.ingredients.any? do |recipe_ingredient|
-        recipe_ingredient.downcase.include?(ingredient.downcase.strip)
+      selected_ingredients.all? do |selected_ingredient|
+        recipe.ingredients.any? do |recipe_ingredient|
+          recipe_ingredient.downcase == selected_ingredient.downcase
+        end
       end
     end
   end
 
-  erb :index, locals: { recipes: filtered_recipes }
+  # Filter by maximum cooking time
+  if max_time && !max_time.empty?
+    filtered_recipes = filtered_recipes.select do |recipe|
+      recipe.cook_time <= max_time.to_i
+    end
+  end
+
+  all_ingredients = recipes.flat_map(&:ingredients).uniq.sort
+
+  erb :index, locals: {
+    recipes: filtered_recipes,
+    all_ingredients: all_ingredients,
+    selected_ingredients: selected_ingredients
+  }
 end
 
 get '/recipes/:name' do
