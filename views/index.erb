@@ -1,33 +1,133 @@
-<h1>CookAssist</h1>
+<link rel="stylesheet" href="/style.css">
 
-<h2>Search Recipes</h2>
+<div class="container">
 
-<form action="/" method="get">
-  <input type="text" name="search" placeholder="Enter recipe name">
-  <button type="submit">Search</button>
-</form>
+  <header class="page-header">
+    <h1>CookAssist</h1>
+    <p>Find something delicious to make.</p>
+  </header>
 
-<h2>Filter by Ingredient</h2>
+  <section class="search-section">
 
-<form action="/" method="get">
-  <input type="text" name="ingredient" placeholder="Enter ingredient">
-  <button type="submit">Filter</button>
-</form>
+    <h2>Find Your Next Recipe</h2>
 
-<h2>Choose a Recipe</h2>
+    <form action="/" method="get" class="search-form">
 
-<% if recipes.empty? %>
+      <div class="search-bar">
+        <input
+          type="text"
+          name="search"
+          placeholder="Search recipes by name..."
+          value="<%= params[:search] %>"
+        >
+        <button type="submit">Search</button>
+      </div>
 
-  <p>No recipes found. Try another search.</p>
+      <div class="filters">
 
-<% else %>
+        <h3>Filter by Ingredients</h3>
 
-  <% recipes.each do |recipe| %>
-    <p>
-      <a href="/recipes/<%= recipe.name.downcase.gsub(" ", "-") %>">
-        <button><%= recipe.name %></button>
-      </a>
-    </p>
-  <% end %>
+        <div class="ingredient-grid">
+          <% all_ingredients.each do |ingredient| %>
+            <label class="ingredient-option">
+              <input
+                type="checkbox"
+                name="ingredients[]"
+                value="<%= ingredient %>"
+                <%= "checked" if selected_ingredients.include?(ingredient) %>
+              >
+              <span><%= ingredient %></span>
+            </label>
+          <% end %>
+        </div>
+<h3>Maximum Cooking Time</h3>
 
-<% end %>
+<div class="time-filter">
+  <select name="max_time">
+    <option value="">Any cooking time</option>
+    <option value="10" <%= "selected" if params[:max_time] == "10" %>>
+      10 minutes or less
+    </option>
+    <option value="15" <%= "selected" if params[:max_time] == "15" %>>
+      15 minutes or less
+    </option>
+    <option value="20" <%= "selected" if params[:max_time] == "20" %>>
+      20 minutes or less
+    </option>
+    <option value="25" <%= "selected" if params[:max_time] == "25" %>>
+      25 minutes or less
+    </option>
+    <option value="30" <%= "selected" if params[:max_time] == "30" %>>
+      30 minutes or less
+    </option>
+  </select>
+</div>
+        <div class="filter-actions">
+          <button type="submit">Apply Filters</button>
+          <a href="/">Clear</a>
+        </div>
+
+      </div>
+
+    </form>
+
+  </section>
+
+  <section class="recipes-section">
+
+    <div class="recipes-header">
+      <h2>Recipes</h2>
+
+      <p>
+        Showing <%= recipes.length %>
+        <%= recipes.length == 1 ? "recipe" : "recipes" %>
+      </p>
+    </div>
+
+    <% if recipes.empty? %>
+
+      <div class="no-results">
+        <h3>No recipes found</h3>
+        <p>Try changing your search or filters.</p>
+      </div>
+
+    <% else %>
+
+      <div class="recipe-grid">
+
+        <% recipes.each do |recipe| %>
+
+          <article class="recipe-card">
+
+            <div class="recipe-card-content">
+
+              <h3><%= recipe.name %></h3>
+
+              <p class="cook-time">
+                ⏱ <%= recipe.cook_time %> minutes
+              </p>
+
+              <p class="recipe-description">
+                <%= recipe.description %>
+              </p>
+
+              <a
+                class="view-recipe"
+                href="/recipes/<%= recipe.name.downcase.gsub(" ", "-") %>"
+              >
+                View Recipe →
+              </a>
+
+            </div>
+
+          </article>
+
+        <% end %>
+
+      </div>
+
+    <% end %>
+
+  </section>
+
+</div>
