@@ -23,7 +23,7 @@ recipes = [
     "Garlic Pasta",
     "A simple pasta dish with garlic, butter, and parmesan.",
     20,
-    ["pasta", "garlic", "butter", "parmesan"],
+    ["pasta", "garlic", "butter", "parmesan cheese"],
     [
       "Bring a pot of salted water to a boil.",
       "Cook the pasta according to the package instructions.",
@@ -74,13 +74,24 @@ recipes = [
 
 get '/' do
   search = params[:search]
+  ingredient = params[:ingredient]
 
-  filtered_recipes = if search && !search.strip.empty?
-    recipes.select do |recipe|
+  filtered_recipes = recipes
+
+  # Filter by recipe name
+  if search && !search.strip.empty?
+    filtered_recipes = filtered_recipes.select do |recipe|
       recipe.name.downcase.include?(search.downcase.strip)
     end
-  else
-    recipes
+  end
+
+  # Filter by ingredient
+  if ingredient && !ingredient.strip.empty?
+    filtered_recipes = filtered_recipes.select do |recipe|
+      recipe.ingredients.any? do |recipe_ingredient|
+        recipe_ingredient.downcase.include?(ingredient.downcase.strip)
+      end
+    end
   end
 
   erb :index, locals: { recipes: filtered_recipes }
