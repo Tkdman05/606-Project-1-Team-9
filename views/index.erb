@@ -1,11 +1,26 @@
-<!-- views/index.erb -->
-<!DOCTYPE html>
-<html>
-<head>
-  <title>CookAssist</title>
-</head>
-<body>
-  <h1>Welcome to CookAssist</h1>
-  <p>Your recipe manager - coming soon!</p>
-</body>
-</html>
+<h1>🍳 CookAssist</h1>
+
+<h2>Search Recipes</h2>
+
+<form action="/" method="get">
+  <input type="text" name="search" placeholder="Enter recipe name">
+  <button type="submit">Search</button>
+</form>
+
+<h2>Choose a Recipe</h2>
+
+<% if recipes.empty? %>
+
+  <p>No recipes found. Try another search.</p>
+
+<% else %>
+
+  <% recipes.each do |recipe| %>
+    <p>
+      <a href="/recipes/<%= recipe.name.downcase.gsub(" ", "-") %>">
+        <button><%= recipe.name %></button>
+      </a>
+    </p>
+  <% end %>
+
+<% end %>
