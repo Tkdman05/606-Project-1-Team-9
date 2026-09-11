@@ -1,52 +1,53 @@
-### 1. As a home cook, I want to add my own recipes so that I can keep my favorite recipes in one place
-Acceptance criteria:
-- User can enter recipe name, description, cooking time, and ingredients list
-- Recipe is saved and appears in the recipe collection
+### 1. As a home cook, I want to add my own recipes to the page so that I can keep my favorite recipes in one place
+- Given I am a home cook
+- And I am making mac & cheese
+- When I enter the recipe information
+- Then I should see the recipe appear on the recipe list
 
 ### 2. As a new cook, I want to have access to pre-loaded recipes so that I can start cooking without needing my own recipes
-Acceptance criteria:
-- Built-in recipes are available upon first app launch
-- Built-in recipes appear in browse and search results
+- Given I am a home cook
+- And I am looking for a pre-loaded meal to cook
+- When I open the application for the first time
+- Then I should see a selection of recipes to make
 
-### 3. As a user, I want to delete/edit my saved recipes so that I can keep my collection of recipes organized and relevant
-Acceptance criteria:
-- User can select a recipe to delete/edit
-- User can modify any field (name, description, time, ingredients)
-- System asks for confirmation before deletion
-- Recipe is removed from the collection after confirmation
-- Changes are saved and reflected immediately
+### 3. As a home cook, I want to delete/edit my saved recipes so that I can keep my collection of recipes organized and relevant
+- Given I am a home cook
+- And I am changing one of my recipes
+- When I click the recipe
+- Then I should see options to delete/edit the recipe
 
-### 4. As a cook, I want to search for recipes by name so that I can quickly find a specific recipe I'm looking for
-Acceptance criteria:
-- User can enter partial or full recipe name
-- System displays matching recipes
+### 4. As a home cook, I want to search for recipes by name so that I can quickly find a specific recipe I'm looking for
+- Given I am a home cook
+- And I am in the search bar on the application
+- When I enter the recipe by name
+- Then I should see recipes containing my search
 
 ### 5. As a busy student, I want to filter recipes by cook time so that I can find quick meals fast
-Acceptance criteria:
-- User can specify filtering by fastest cook time
-- System displays all recipes in order of fastest to slowest cook time
+- Given I am a busy student
+- And I am looking at the search filters
+- When I click to sort by cook time
+- Then I see the shortest time-to-cook recipe first
 
-### 6. As a user on a diet, I want to search for recipes by specific ingredients so that I can avoid those foods
-Acceptance criteria:
-- User can enter one or more ingredient names
-- System displays recipes containing those ingredients
-- System can alternatively display recipes not containing those ingredients
+### 6. As a cook on a diet, I want to search for recipes by specific ingredients so that I can cook with those foods
+- Given I am a cook on a diet
+- And I am looking at the search bar
+- When I type in a certain ingredient
+- Then I should see recipes containing that ingredient
 
-### 7. As an organized cook, I want to mark which ingredients I have at home so that I can know what I need to buy for recipes
-Acceptance criteria:
-- User can mark ingredients as available/unavailable
-- System remembers ingredient availability between sessions
-- User can view list of currently available ingredients
+### 7. As a home cook, I want to mark which ingredients I have at home so that I can know what I need to buy for recipes
+- Given I am a home cook
+- And I am looking at the ingredient list
+- When I click on an ingredient
+- Then the ingredient should be marked abset
 
-### 8. As an organized cook, I want to generate a shopping list for a specific recipe so that I can know exactly what to buy at the store
-Acceptance criteria:
-- User can select a recipe to generate shopping list
-- System identifies missing ingredients (not marked as available)
-- Shopping list displays only missing ingredients
+### 8. As a home cook, I want to generate a shopping list for a specific recipe so that I can know exactly what to buy at the store
+- Given I am a home cook
+- And I am looking at a certain recipe
+- When I click "make shopping list"
+- Then I should see a list of ingredients I don't own
 
-### 9. As a cook, I want to receive clear error messages when entering invalid recipe data so that I can understand what needs to be corrected without needing prior knowledg
-Acceptance criteria: (Examples, there are many more)
-- System rejects empty recipe names with error message
-- System validates cooking time is a positive number
-- System requires at least one ingredient
-- User can retry input after error without losing other entered data
+### 9. As a tester/developer, I want to receive clear error messages when entering invalid  data so that I can understand what went wrong
+- Given I am a tester/developer
+- And I am testing functionality
+- When I encounter a sad path
+- Then a clear error message appears
