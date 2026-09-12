@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'json'
 require_relative 'models/recipe'
 
 recipes = [
@@ -113,19 +114,44 @@ get '/' do
   }
 end
 
-get '/recipes/:name' do
-  recipe = recipes.find do |r|
-    r.name.downcase.gsub(" ", "-") == params[:name]
-  end
+get '/recipes' do
+  erb :recipes, locals: { recipes: recipes }
+end
 
-  if recipe
-    erb :recipe, locals: { recipe: recipe }
+get '/recipes/:name' do
+  if params[:name] == "new"
+    erb :new_recipe
   else
-    status 404
-    "Recipe not found"
+    recipe = recipes.find do |r|
+      r.name.downcase.gsub(" ", "-") == params[:name]
+    end
+
+    if recipe
+      erb :recipe, locals: { recipe: recipe }
+    else
+      status 404
+      "Recipe not found"
+    end
   end
 end
 
-get '/recipes' do
-  erb :recipes, locals: { recipes: recipes }
+# Add a new recipe
+post '/recipes' do
+  ingredients = params[:ingredients].split(',').map(&:strip)
+  instructions = params[:instructions].split("\n").map(&:strip).reject(&:empty?)
+  
+  new_recipe = Recipe.new(
+    params[:name],
+    params[:description],
+    params[:cook_time].to_i,
+    ingredients,
+    instructions
+  )
+  
+  recipes << new_recipe
+  
+  # Optionally save to file for persistence
+  # save_recipes_to_file
+  
+  redirect "/recipes/#{new_recipe.name.downcase.gsub(' ', '-')}"
 end

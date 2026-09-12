@@ -27,7 +27,7 @@
 
         <h3>Filter by Ingredients</h3>
 
-        <div class="ingredient-grid">
+        <div class="ingredient-scroll-box">
           <% all_ingredients.each do |ingredient| %>
             <label class="ingredient-option">
               <input
@@ -40,28 +40,21 @@
             </label>
           <% end %>
         </div>
-<h3>Maximum Cooking Time</h3>
 
-<div class="time-filter">
-  <select name="max_time">
-    <option value="">Any cooking time</option>
-    <option value="10" <%= "selected" if params[:max_time] == "10" %>>
-      10 minutes or less
-    </option>
-    <option value="15" <%= "selected" if params[:max_time] == "15" %>>
-      15 minutes or less
-    </option>
-    <option value="20" <%= "selected" if params[:max_time] == "20" %>>
-      20 minutes or less
-    </option>
-    <option value="25" <%= "selected" if params[:max_time] == "25" %>>
-      25 minutes or less
-    </option>
-    <option value="30" <%= "selected" if params[:max_time] == "30" %>>
-      30 minutes or less
-    </option>
-  </select>
-</div>
+        <h3>Maximum Cooking Time</h3>
+        <div class="time-filter">
+          <input 
+            type="number" 
+            name="max_time" 
+            placeholder="e.g., 25" 
+            value="<%= params[:max_time] %>"
+            min="1"
+            max="180"
+            class="time-input"
+          >
+          <span class="time-label">minutes</span>
+        </div>
+
         <div class="filter-actions">
           <button type="submit">Apply Filters</button>
           <a href="/">Clear</a>
@@ -77,6 +70,10 @@
 
     <div class="recipes-header">
       <h2>Recipes</h2>
+
+      <div class="add-recipe-section">
+        <a href="/recipes/new" class="add-recipe-btn">+ Add New Recipe</a>
+      </div>
 
       <p>
         Showing <%= recipes.length %>
