@@ -7,6 +7,7 @@ Verify ruby installation (4.0.6):
 
 ``` bash
 ruby -v
+bundle -v
 bundle install
 ```
 

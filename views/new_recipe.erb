@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add New Recipe</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .form-container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 8px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    
+    textarea {
+      resize: vertical;
+      font-family: inherit;
+    }
+    
+    .hint {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .btn-submit {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #535efc;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      border: none;
+    }
+    
+    .btn-submit:hover {
+      background: #0011ff;
+    }
+    
+    .btn-cancel {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #f44336;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    
+    .btn-cancel:hover {
+      background: #da190b;
+    }
+    
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Add New Recipe</h1>
+    
+    <form action="/recipes" method="post">
+      <div class="form-group">
+        <label for="name">Recipe Name *</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          required
+          placeholder="e.g., Spaghetti Carbonara"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="description">Description *</label>
+        <textarea 
+          id="description" 
+          name="description" 
+          rows="3" 
+          required
+          placeholder="A brief description of your recipe..."
+        ></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="cook_time">Cooking Time (minutes) *</label>
+        <input 
+          type="number" 
+          id="cook_time" 
+          name="cook_time" 
+          min="1" 
+          max="480" 
+          required
+          placeholder="e.g., 30"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="ingredients">Ingredients *</label>
+        <textarea 
+          id="ingredients" 
+          name="ingredients" 
+          rows="4" 
+          required
+          placeholder="Enter ingredients separated by commas&#10;e.g., pasta, eggs, bacon, parmesan cheese, black pepper"
+        ></textarea>
+        <p class="hint">Separate each ingredient with a comma</p>
+      </div>
+      
+      <div class="form-group">
+        <label for="instructions">Instructions *</label>
+        <textarea 
+          id="instructions" 
+          name="instructions" 
+          rows="10" 
+          required
+          placeholder="Enter each step on a new line&#10;e.g.,&#10;Cook pasta according to package directions.&#10;While pasta cooks, fry bacon until crispy.&#10;Beat eggs with parmesan cheese."
+        ></textarea>
+        <p class="hint">Put each instruction step on a new line</p>
+      </div>
+      
+      <div class="button-group">
+        <button type="submit" class="btn-submit">Add Recipe</button>
+        <a href="/" class="btn-cancel">Cancel</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

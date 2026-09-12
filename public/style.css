@@ -59,10 +59,13 @@ body {
   margin-bottom: 18px;
   font-size: 21px;
 }
-.ingredient-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+.ingredient-scroll-box {
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background: #f9f9f9;
 }
 .ingredient-option {
   display: flex;
@@ -149,7 +152,6 @@ body {
   font-weight: bold;
 }
 .recipe-description {
-
   line-height: 1.5;
   margin: 0 0 18px;
 }
@@ -198,4 +200,23 @@ body {
   .ingredient-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.add-recipe-section {
+  text-align: left;
+  margin: 20px 0;
+}
+
+.add-recipe-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #535efc;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.add-recipe-btn:hover {
+  background: #0011ff;
 }

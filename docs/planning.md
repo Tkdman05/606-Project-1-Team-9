@@ -18,7 +18,7 @@ Essential vs Optional Features
 - Ingredient-based recipe suggestions - The application can suggest recipes that can be made using the ingredients the user currently has available
 
 ### Individual vs. Pair Programming:
-TBD
+The primary collaboration will take place individually, with plans to update & regroup periodically to pair program, test and discuss, at least once a week.
 
 ### What a "Done" Project looks like:
 - All essential features are implemented and functional
