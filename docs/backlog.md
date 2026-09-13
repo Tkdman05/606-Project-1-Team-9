@@ -4,17 +4,17 @@ Tasks: <u>Wyatt completed 9/12/<u>
 - Implement add recipe UI flow and storage
 
 ### Essential Story 2: As a new cook, I want to have access to pre-loaded recipes so that I can start cooking without needing my own recipes
-Tasks:To Do <u>Aditi completed 9/10/<u>
+Tasks: <u>Aditi completed 9/10/<u>
 - Create built-in recipes data file
 - Load and display built-in recipes
 
 ### Essential Story 3: As a home cook, I want to search for recipes by name so that I can quickly find specific recipes
-Tasks:To Do
+Tasks: <u>Aditi completed 9/10/<u>
 - Implement recipe name search
 - Create search UI and results display
 
 ### Story 4: As a home cook, I want to delete/edit my saved recipes so that I can keep my collection organized
-Tasks:To Do
+Tasks: To Do
 - Implement delete recipe with confirmation
 - Implement edit recipe flow
 
@@ -24,18 +24,18 @@ Tasks: <u>Aditi completed 9/11/<u>
 - Add time filter to UI
 
 ### Story 6: As a cook on a diet, I want to search for recipes by specific ingredients to avoid certain foods
-Tasks:To Do
+Tasks: <u>Aditi completed 9/11/<u>
 - Implement ingredient filtering
 - Create ingredient search interface
 
 ### Story 7: As a home cook, I want to mark which ingredients I have at home
-Tasks:To Do
+Tasks: To Do
 - Create Ingredient class and manager
 - Build ingredient management UI
 - Implement ingredient persistence
 
 ### Story 8: As a home cook, I want to generate a shopping list for a specific recipe
-Tasks:To Do
+Tasks: To Do
 - Implement shopping list generation
 - Create shopping list display
 

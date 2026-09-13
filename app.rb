@@ -1,8 +1,45 @@
 require 'sinatra'
 require 'json'
+require 'fileutils'
 require_relative 'models/recipe'
 
-recipes = [
+FileUtils.mkdir_p('data') unless File.directory?('data')
+
+def save_recipes_to_file(recipes)
+  recipes_data = recipes.map do |recipe|
+    {
+      'name' => recipe.name,
+      'description' => recipe.description,
+      'cook_time' => recipe.cook_time,
+      'ingredients' => recipe.ingredients,
+      'steps' => recipe.steps
+    }
+  end
+  
+  File.write('data/recipes.json', JSON.pretty_generate(recipes_data))
+end
+
+def load_recipes_from_file
+  return [] unless File.exist?('data/recipes.json')
+  
+  begin
+    data = JSON.parse(File.read('data/recipes.json'))
+    data.map do |recipe_data|
+      Recipe.new(
+        recipe_data['name'],
+        recipe_data['description'],
+        recipe_data['cook_time'],
+        recipe_data['ingredients'],
+        recipe_data['steps']
+      )
+    end
+  rescue JSON::ParserError => e
+    puts "Error loading recipes: #{e.message}"
+    []
+  end
+end
+
+default_recipes = [
   Recipe.new(
     "Grilled Cheese Sandwich",
     "A crispy grilled cheese sandwich with melted cheddar cheese.",
@@ -73,6 +110,12 @@ recipes = [
   )
 ]
 
+recipes = load_recipes_from_file
+if recipes.empty?
+  recipes = default_recipes
+  save_recipes_to_file(recipes)
+end
+
 get '/' do
   search = params[:search]
   selected_ingredients = params[:ingredients] || []
@@ -138,20 +181,20 @@ end
 # Add a new recipe
 post '/recipes' do
   ingredients = params[:ingredients].split(',').map(&:strip)
-  instructions = params[:instructions].split("\n").map(&:strip).reject(&:empty?)
+  steps = params[:steps].split("\n").map(&:strip).reject(&:empty?)
   
   new_recipe = Recipe.new(
     params[:name],
     params[:description],
     params[:cook_time].to_i,
     ingredients,
-    instructions
+    steps
   )
   
   recipes << new_recipe
   
-  # Optionally save to file for persistence
-  # save_recipes_to_file
+  # Save to file for persistence
+  save_recipes_to_file(recipes)
   
   redirect "/recipes/#{new_recipe.name.downcase.gsub(' ', '-')}"
 end
