@@ -17,19 +17,25 @@ ruby app.rb
 Navigate to localhost link, Ctrl+C to stop
 
 ### Test/report instructions:
-- To test individual functionality: bundle exec rspec spac/<filename_spec>.rb
-- To test suite: bundle exec rspec
+- To test individual functionality: 
+``` bash
+bundle exec rspec spac/<filename_spec>.rb
+```
+- To test suite: 
+``` bash
+bundle exec rspec
+```
 - coverage/index.html to see coverage report
 
 ### Main features:
 - 4 Built-in, ready to make recipes
 - Recipe creation, allowing users to save custom recipes/ingredients
 - Search bar for recipes
-- Filter that 
+- Filter based on the recipes and ingredients
 
 ### Limitations:
 - No edit/delete recipe functionality yet
 - Ingredient list is not case sensitive (ie: Bread & bread can both exist)
 - Page reloads after every alteration
 
-### Members: Wyatt Soper & Aditi Chidu
+### Members: Wyatt Soper & Aditi Chidambara
