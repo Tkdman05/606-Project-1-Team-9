@@ -108,12 +108,21 @@
                 <%= recipe.description %>
               </p>
 
-              <a
-                class="view-recipe"
-                href="/recipes/<%= recipe.name.downcase.gsub(" ", "-") %>"
-              >
-                View Recipe →
-              </a>
+                <a
+                  class="view-recipe"
+                  href="/recipes/<%= recipe.name.downcase.gsub(" ", "-") %>/edit"
+                >
+                  Edit →
+                </a>
+
+                <span style="margin: 0 10px;">|</span>
+
+                <a
+                  class="view-recipe"
+                  href="/recipes/<%= recipe.name.downcase.gsub(" ", "-") %>"
+                >
+                  View Recipe →
+                </a>
 
             </div>
 

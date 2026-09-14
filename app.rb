@@ -161,6 +161,7 @@ get '/recipes' do
   erb :recipes, locals: { recipes: recipes }
 end
 
+# Show a specific recipe or the new recipe form
 get '/recipes/:name' do
   if params[:name] == "new"
     erb :new_recipe
@@ -197,4 +198,60 @@ post '/recipes' do
   save_recipes_to_file(recipes)
   
   redirect "/recipes/#{new_recipe.name.downcase.gsub(' ', '-')}"
+end
+
+# Edit an existing recipe
+get '/recipes/:name/edit' do
+  recipe = recipes.find do |r|
+    r.name.downcase.gsub(" ", "-") == params[:name]
+  end
+
+  if recipe
+    erb :edit_recipe, locals: { recipe: recipe }
+  else
+    status 404
+    "Recipe not found"
+  end
+end
+
+# Update an existing recipe
+post '/recipes/:name/update' do
+  recipe = recipes.find do |r|
+    r.name.downcase.gsub(" ", "-") == params[:name]
+  end
+
+  if recipe
+    recipe.name = params[:new_name]
+    recipe.description = params[:description]
+    recipe.cook_time = params[:cook_time].to_i
+    recipe.ingredients = params[:ingredients].split(',').map(&:strip)
+    recipe.steps = params[:steps].split("\n").map(&:strip).reject(&:empty?)
+
+    # Save to file for persistence
+    save_recipes_to_file(recipes)
+
+    redirect "/recipes/#{recipe.name.downcase.gsub(' ', '-')}"
+  else
+    status 404
+    "Recipe not found"
+  end
+end
+
+# Delete an existing recipe
+post '/recipes/:name/delete' do
+  recipe = recipes.find do |r|
+    r.name.downcase.gsub(" ", "-") == params[:name]
+  end
+
+  if recipe
+    recipes.delete(recipe)
+
+    # Save to file for persistence
+    save_recipes_to_file(recipes)
+
+    redirect '/'
+  else
+    status 404
+    "Recipe not found"
+  end
 end
