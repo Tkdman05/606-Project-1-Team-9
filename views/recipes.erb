@@ -1,0 +1,29 @@
+<h1>CookAssist Recipes</h1>
+
+<% recipes.each do |recipe| %>
+  <div>
+    <h2><%= recipe.name %></h2>
+
+    <p><strong>Cooking time:</strong> <%= recipe.cook_time %> minutes</p>
+
+    <p><%= recipe.description %></p>
+
+    <h3>Ingredients</h3>
+
+    <ul>
+      <% recipe.ingredients.each do |ingredient| %>
+        <li><%= ingredient %></li>
+      <% end %>
+    </ul>
+
+    <h3>Steps</h3>
+
+    <ol>
+      <% recipe.steps.each do |step| %>
+        <li><%= step %></li>
+      <% end %>
+    </ol>
+  </div>
+
+  <hr>
+<% end %>

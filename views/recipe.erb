@@ -1,0 +1,28 @@
+<h1><%= recipe.name %></h1>
+
+<p>
+  <strong>Cooking time:</strong>
+  <%= recipe.cook_time %> minutes
+</p>
+
+<p><%= recipe.description %></p>
+
+<h2>Ingredients</h2>
+
+<ul>
+  <% recipe.ingredients.each do |ingredient| %>
+    <li><%= ingredient %></li>
+  <% end %>
+</ul>
+
+<h2>Steps</h2>
+
+<ol>
+  <% recipe.steps.each do |step| %>
+    <li><%= step %></li>
+  <% end %>
+</ol>
+
+<p>
+  <a href="/">← Back to recipes</a>
+</p>

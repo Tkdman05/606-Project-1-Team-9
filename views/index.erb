@@ -1,11 +1,139 @@
-<!-- views/index.erb -->
-<!DOCTYPE html>
-<html>
-<head>
-  <title>CookAssist</title>
-</head>
-<body>
-  <h1>Welcome to CookAssist</h1>
-  <p>Your recipe manager - coming soon!</p>
-</body>
-</html>
+<link rel="stylesheet" href="/style.css">
+
+<div class="container">
+
+  <header class="page-header">
+    <h1>CookAssist</h1>
+    <p>Find something delicious to make.</p>
+  </header>
+
+  <section class="search-section">
+
+    <h2>Find Your Next Recipe</h2>
+
+    <form action="/" method="get" class="search-form">
+
+      <div class="search-bar">
+        <input
+          type="text"
+          name="search"
+          placeholder="Search recipes by name..."
+          value="<%= params[:search] %>"
+        >
+        <button type="submit">Search</button>
+      </div>
+
+      <div class="filters">
+
+        <h3>Filter by Ingredients</h3>
+
+        <div class="ingredient-scroll-box">
+          <% all_ingredients.each do |ingredient| %>
+            <label class="ingredient-option">
+              <input
+                type="checkbox"
+                name="ingredients[]"
+                value="<%= ingredient %>"
+                <%= "checked" if selected_ingredients.include?(ingredient) %>
+              >
+              <span><%= ingredient %></span>
+            </label>
+          <% end %>
+        </div>
+
+        <h3>Maximum Cooking Time</h3>
+        <div class="time-filter">
+          <input 
+            type="number" 
+            name="max_time" 
+            placeholder="e.g., 25" 
+            value="<%= params[:max_time] %>"
+            min="1"
+            max="180"
+            class="time-input"
+          >
+          <span class="time-label">minutes</span>
+        </div>
+
+        <div class="filter-actions">
+          <button type="submit">Apply Filters</button>
+          <a href="/">Clear</a>
+        </div>
+
+      </div>
+
+    </form>
+
+  </section>
+
+  <section class="recipes-section">
+
+    <div class="recipes-header">
+      <h2>Recipes</h2>
+
+      <div class="add-recipe-section">
+        <a href="/recipes/new" class="add-recipe-btn">+ Add New Recipe</a>
+      </div>
+
+      <p>
+        Showing <%= recipes.length %>
+        <%= recipes.length == 1 ? "recipe" : "recipes" %>
+      </p>
+    </div>
+
+    <% if recipes.empty? %>
+
+      <div class="no-results">
+        <h3>No recipes found</h3>
+        <p>Try changing your search or filters.</p>
+      </div>
+
+    <% else %>
+
+      <div class="recipe-grid">
+
+        <% recipes.each do |recipe| %>
+
+          <article class="recipe-card">
+
+            <div class="recipe-card-content">
+
+              <h3><%= recipe.name %></h3>
+
+              <p class="cook-time">
+                ⏱ <%= recipe.cook_time %> minutes
+              </p>
+
+              <p class="recipe-description">
+                <%= recipe.description %>
+              </p>
+
+                <a
+                  class="view-recipe"
+                  href="/recipes/<%= recipe.name.downcase.gsub(" ", "-") %>/edit"
+                >
+                  Edit →
+                </a>
+
+                <span style="margin: 0 10px;">|</span>
+
+                <a
+                  class="view-recipe"
+                  href="/recipes/<%= recipe.name.downcase.gsub(" ", "-") %>"
+                >
+                  View Recipe →
+                </a>
+
+            </div>
+
+          </article>
+
+        <% end %>
+
+      </div>
+
+    <% end %>
+
+  </section>
+
+</div>

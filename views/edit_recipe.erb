@@ -1,0 +1,177 @@
+<link rel="stylesheet" href="/style.css">
+
+<style>
+.form-section {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 30px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.recipe-form {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #2d2d2d;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  resize: vertical;
+  font-family: Arial, sans-serif;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.btn-primary {
+  padding: 12px 24px;
+  background: #535efc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #0011ff;
+}
+
+.btn-secondary {
+  padding: 12px 24px;
+  background: #6c757d;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+}
+
+.btn-danger {
+  padding: 12px 24px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background: #c82333;
+}
+</style>
+
+<div class="container">
+    <h1>Edit Recipe</h1>
+
+    <section class="form-section">
+    <form action="/recipes/<%= recipe.name.downcase.gsub(' ', '-') %>/update" method="post" class="recipe-form">
+      
+      <div class="form-group">
+        <label for="new_name">Recipe Name:</label>
+        <input 
+          type="text" 
+          id="new_name" 
+          name="new_name" 
+          value="<%= recipe.name %>"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea 
+          id="description" 
+          name="description" 
+          rows="3"
+          required
+        ><%= recipe.description %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="cook_time">Cooking Time (minutes):</label>
+        <input 
+          type="number" 
+          id="cook_time" 
+          name="cook_time" 
+          value="<%= recipe.cook_time %>"
+          min="1"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="ingredients">Ingredients (comma-separated):</label>
+        <textarea 
+          id="ingredients" 
+          name="ingredients" 
+          rows="3"
+          placeholder="e.g., pasta, garlic, butter, cheese"
+          required
+        ><%= recipe.ingredients.join(', ') %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="steps">Steps (one per line):</label>
+        <textarea 
+          id="steps" 
+          name="steps" 
+          rows="8"
+          placeholder="Enter each step on a new line"
+          required
+        ><%= recipe.steps.join("\n") %></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Update Recipe</button>
+        <a href="/recipes/<%= recipe.name.downcase.gsub(' ', '-') %>" class="btn-secondary">Cancel</a>
+        
+        <button 
+            type="submit"
+            form="delete-form"
+            class="btn-danger"
+            onclick="return confirm('Are you sure you want to delete this recipe?');"
+        >
+            Delete Recipe
+        </button>
+
+      </div>
+
+    </form>
+
+    <form id="delete-form" action="/recipes/<%= recipe.name.downcase.gsub(' ', '-') %>/delete" method="post" style="display: none;">
+
+  </section>
+</div>
