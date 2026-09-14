@@ -1,9 +1,8 @@
 # CookAssist
-
 CookAssist is a terminal application that allows users to organize and manage recipes and easily find recipes based on available ingredients and cooking time. Users can maintain a list of ingredients they have available and generate a shopping list for any recipe containing ingredients they are missing. 
 
 ### Installation instructions:
-Verify ruby installation (4.0.6): 
+Verify ruby installation (3.0.0 +): 
 
 ``` bash
 ruby -v
@@ -18,7 +17,9 @@ ruby app.rb
 Navigate to localhost link, Ctrl+C to stop
 
 ### Test/report instructions:
-- To Do
+- To test individual functionality: bundle exec rspec spac/<filename_spec>.rb
+- To test suite: bundle exec rspec
+- coverage/index.html to see coverage report
 
 ### Main features:
 - 4 Built-in, ready to make recipes

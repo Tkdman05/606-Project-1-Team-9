@@ -5,6 +5,7 @@ require_relative 'models/recipe'
 
 FileUtils.mkdir_p('data') unless File.directory?('data')
 
+# Save Files
 def save_recipes_to_file(recipes)
   recipes_data = recipes.map do |recipe|
     {
@@ -19,6 +20,7 @@ def save_recipes_to_file(recipes)
   File.write('data/recipes.json', JSON.pretty_generate(recipes_data))
 end
 
+# Load Files
 def load_recipes_from_file
   return [] unless File.exist?('data/recipes.json')
   
@@ -39,6 +41,7 @@ def load_recipes_from_file
   end
 end
 
+# Initialize Recipes
 default_recipes = [
   Recipe.new(
     "Grilled Cheese Sandwich",
@@ -110,12 +113,14 @@ default_recipes = [
   )
 ]
 
+# Load recipes from file or use default recipes
 recipes = load_recipes_from_file
 if recipes.empty?
   recipes = default_recipes
   save_recipes_to_file(recipes)
 end
 
+# Routes
 get '/' do
   search = params[:search]
   selected_ingredients = params[:ingredients] || []
@@ -157,6 +162,7 @@ get '/' do
   }
 end
 
+# Show all recipes
 get '/recipes' do
   erb :recipes, locals: { recipes: recipes }
 end
@@ -181,6 +187,22 @@ end
 
 # Add a new recipe
 post '/recipes' do
+  # Check bad inputs
+  if params[:name].nil? || params[:name].strip.empty? ||
+     params[:description].nil? || params[:description].strip.empty? ||
+     params[:cook_time].nil? || params[:cook_time].strip.empty? ||
+     params[:ingredients].nil? || params[:ingredients].strip.empty? ||
+     params[:steps].nil? || params[:steps].strip.empty?
+    status 400
+    return "Invalid recipe data"
+  end
+  
+  cook_time = params[:cook_time].to_i
+  if cook_time <= 0
+    status 400
+    return "Invalid recipe data"
+  end
+
   ingredients = params[:ingredients].split(',').map(&:strip)
   steps = params[:steps].split("\n").map(&:strip).reject(&:empty?)
   
@@ -216,6 +238,22 @@ end
 
 # Update an existing recipe
 post '/recipes/:name/update' do
+  # check bad inputs
+  if params[:new_name].nil? || params[:new_name].strip.empty? ||
+     params[:description].nil? || params[:description].strip.empty? ||
+     params[:cook_time].nil? || params[:cook_time].strip.empty? ||
+     params[:ingredients].nil? || params[:ingredients].strip.empty? ||
+     params[:steps].nil? || params[:steps].strip.empty?
+    status 400
+    return "Invalid recipe data"
+  end
+
+  cook_time = params[:cook_time].to_i
+  if cook_time <= 0
+    status 400
+    return "Invalid recipe data"
+  end
+
   recipe = recipes.find do |r|
     r.name.downcase.gsub(" ", "-") == params[:name]
   end
