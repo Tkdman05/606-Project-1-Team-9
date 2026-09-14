@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 
-SimpleCov.start do 
+SimpleCov.start do
   skip '/spec/' # Exclude spec directory
 end
 
@@ -11,7 +13,7 @@ require 'fileutils'
 
 ENV['RACK_ENV'] = 'test'
 
-require File.expand_path('../../app.rb', __FILE__)
+require File.expand_path('../app.rb', __dir__)
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
