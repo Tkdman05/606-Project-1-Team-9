@@ -31,4 +31,4 @@ Navigate to localhost link, Ctrl+C to stop
 - Ingredient list is not case sensitive (ie: Bread & bread can both exist)
 - Page reloads after every alteration
 
-### Members: Wyatt Soper & Aditi Chidu
+### Members: Wyatt Soper & Aditi Chidambara
