@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# recipe.rb
 class Recipe
   attr_accessor :name, :description, :cook_time, :ingredients, :steps
 
