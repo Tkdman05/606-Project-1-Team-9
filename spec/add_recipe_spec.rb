@@ -10,6 +10,7 @@ describe 'Add Recipe' do
     post '/recipes/test-recipe/delete'
   end
 
+  # Story 1: Add a new recipe
   it 'should create a new recipe and redirect to the recipe page' do
     post '/recipes', {
       name: 'Test Recipe',

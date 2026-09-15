@@ -21,6 +21,7 @@ describe 'Edit Recipe' do
     post '/recipes/test-recipe/delete'
   end
 
+  # Story 4: Edit an existing recipe
   it 'should edit an existing recipe with correct details' do
     post '/recipes/test-recipe/update', {
       new_name: 'Updated Recipe',
@@ -42,6 +43,7 @@ describe 'Edit Recipe' do
     expect(last_response.body).to include('Updated Step 2')
   end
 
+  # Story 4: Delete an existing recipe
   it 'should delete an existing recipe' do
     post '/recipes/test-recipe/delete'
 
