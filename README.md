@@ -17,25 +17,30 @@ ruby app.rb
 Navigate to localhost link, Ctrl+C to stop
 
 ### Test/report instructions:
+- RSpec tests were added to verify the main features implemented for the project. The tests focus on the acceptance criteria for the 6 completed stories
+- The tests and coverage report can be run using the command
+```bash 
+rspec
+```
+- For more details on tests
+```bash
+rspec -fd
+```
 - To test individual functionality: 
 ``` bash
-bundle exec rspec spac/<filename_spec>.rb
+brspec spc/<filename_spec>.rb
 ```
-- To test suite: 
-``` bash
-bundle exec rspec
-```
-- coverage/index.html to see coverage report
+- coverage/index.html to see the coverage report
 
 ### Main features:
-- 4 Built-in, ready to make recipes
+- 4 Built-in, ready-to-make recipes
 - Recipe creation, allowing users to save custom recipes/ingredients
 - Search bar for recipes
-- Filter based on the recipes and ingredients
+- Filter based on the recipes, ingredients and cook time
 
 ### Limitations:
-- No edit/delete recipe functionality yet
-- Ingredient list is not case sensitive (ie: Bread & bread can both exist)
+- Ingredient list is not case-sensitive (ie: Bread & bread can both exist)
 - Page reloads after every alteration
+- Functionality of ingredient selection and shopping list not implemented
 
 ### Members: Wyatt Soper & Aditi Chidambara
