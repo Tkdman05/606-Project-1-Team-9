@@ -18,8 +18,12 @@ ruby app.rb
 Navigate to localhost link, Ctrl+C to stop
 
 ### Test/report instructions:
-- Performed manual testing to ensure errors are being thrown and to understand if the app flow works as expected
-- Will perform automated testing after the mid-point evaluation
+- RSpec tests were added to verify the main features implemented for the project. The tests focus on the acceptance criteria for the pre-loaded recipes, recipe name search, cook-time filtering, and ingredient filtering.
+- The tests can be run using the 
+```bash 
+rspec -fd 
+```
+command from the project directory. These tests provide automated verification that the implemented features continue to work as expected when changes are made to the application.
 
 ### Main features:
 - 4 Built-in, ready to make recipes
