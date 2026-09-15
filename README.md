@@ -23,7 +23,8 @@ Navigate to localhost link, Ctrl+C to stop
 ```bash 
 rspec -fd 
 ```
-command from the project directory. These tests provide automated verification that the implemented features continue to work as expected when changes are made to the application.
+  command from the project directory. 
+- These tests provide automated verification that the implemented features continue to work as expected when changes are made to the application.
 
 ### Main features:
 - 4 Built-in, ready to make recipes
