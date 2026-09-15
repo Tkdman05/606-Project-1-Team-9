@@ -28,7 +28,7 @@ rspec -fd
 ```
 - To test individual functionality: 
 ``` bash
-brspec spc/<filename_spec>.rb
+brspec spec/<filename_spec>.rb
 ```
 - coverage/index.html to see the coverage report
 
