@@ -29,7 +29,9 @@
 - Create ingredient search interface
 
 ### Story 7: As a home cook, I want to mark which ingredients I have at home
-1 Point Tasks: To Do
+1 Point Tasks: <u>Aditi Completed 9/22<u>
+- Display available and missing ingredients for recipes
+- Allow recipes to be filtered using saved ingredients
 - Create Ingredient class and manager
 - Build ingredient management UI
 - Implement ingredient persistence
