@@ -9,11 +9,34 @@
 
 <h2>Ingredients</h2>
 
-<ul>
-  <% recipe.ingredients.each do |ingredient| %>
-    <li><%= ingredient %></li>
+<ul class="recipe-ingredient-list">
+
+  <% recipe.ingredients.each do |ingredient_name| %>
+
+    <% home_ingredient = ingredients.find do |item|
+         item.name.downcase == ingredient_name.downcase
+       end %>
+
+    <li class="<%= home_ingredient&.available ? 'ingredient-have' : 'ingredient-missing' %>">
+
+      <span>
+        <%= home_ingredient&.available ? "✓" : "✕" %>
+        <%= ingredient_name %>
+      </span>
+
+      <strong>
+        <%= home_ingredient&.available ? "Have" : "Missing" %>
+      </strong>
+
+    </li>
+
   <% end %>
+
 </ul>
+
+  <p>
+  <a href="/ingredients">Manage My Ingredients</a>
+</p>
 
 <h2>Steps</h2>
 
