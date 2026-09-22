@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="/style.css">
+
+<div class="container">
+
+  <header class="page-header">
+    <h1>My Ingredients</h1>
+    <p>Mark the ingredients you currently have at home.</p>
+  </header>
+
+  <section class="ingredients-section">
+
+    <div class="ingredient-list">
+
+      <% ingredients.each do |ingredient| %>
+
+        <form action="/ingredients/toggle" method="post">
+
+          <input
+            type="hidden"
+            name="name"
+            value="<%= ingredient.name %>"
+          >
+
+          <button
+            type="submit"
+            class="inventory-ingredient <%= ingredient.available ? 'available' : 'missing' %>"
+          >
+
+            <span class="ingredient-status">
+              <%= ingredient.available ? "✓" : "✕" %>
+            </span>
+
+            <span>
+              <%= ingredient.name %>
+            </span>
+
+            <span class="availability-text">
+              <%= ingredient.available ? "Have" : "Missing" %>
+            </span>
+
+          </button>
+
+        </form>
+
+      <% end %>
+
+    </div>
+
+  </section>
+
+  <p class="back-link">
+    <a href="/">← Back to recipes</a>
+  </p>
+
+</div>
