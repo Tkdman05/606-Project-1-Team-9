@@ -19,11 +19,14 @@ Navigate to localhost link, Ctrl+C to stop
 ### Test/report instructions:
 - To test individual functionality: 
 ``` bash
-bundle exec rspec spac/<filename_spec>.rb
+rspec spec/<filename_spec>.rb
 ```
 - To test suite: 
 ``` bash
-bundle exec rspec
+rspec
+```
+``` bash
+rspec -fd
 ```
 - coverage/index.html to see coverage report
 
@@ -31,11 +34,11 @@ bundle exec rspec
 - 4 Built-in, ready to make recipes
 - Recipe creation, allowing users to save custom recipes/ingredients
 - Search bar for recipes
-- Filter based on the recipes and ingredients
+- Filter based on the recipes, ingredients & cook time
 
 ### Limitations:
-- No edit/delete recipe functionality yet
 - Ingredient list is not case sensitive (ie: Bread & bread can both exist)
 - Page reloads after every alteration
+- Ingredient tracking & shopping list not implemented yet
 
 ### Members: Wyatt Soper & Aditi Chidambara
