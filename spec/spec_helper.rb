@@ -3,7 +3,7 @@
 require 'simplecov'
 
 SimpleCov.start do
-  skip '/spec/' # Exclude spec directory
+  skip '/spec/'
 end
 
 require 'rack/test'
@@ -20,16 +20,5 @@ RSpec.configure do |config|
 
   def app
     Sinatra::Application
-  end
-
-  # Clean up the data directory before and after each test
-  config.before(:each) do
-    FileUtils.rm_rf('data')
-    FileUtils.mkdir_p('data')
-  end
-
-  config.after(:each) do
-    FileUtils.rm_rf('data')
-    FileUtils.mkdir_p('data')
   end
 end

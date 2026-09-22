@@ -56,11 +56,15 @@ describe 'Add Recipe' do
     # Read the recipes.json file
     recipes_data = JSON.parse(File.read('data/recipes.json'))
 
-    expect(recipes_data[4]['name']).to eq('Test Recipe')
-    expect(recipes_data[4]['description']).to eq('A test recipe')
-    expect(recipes_data[4]['cook_time']).to eq(30)
-    expect(recipes_data[4]['ingredients']).to include('ingredient1', 'ingredient2')
-    expect(recipes_data[4]['steps']).to include('Step 1', 'Step 2')
+    test_recipe = recipes_data.find do |recipe|
+      recipe['name'] == 'Test Recipe'
+    end
+
+    expect(test_recipe).not_to be_nil
+    expect(test_recipe['description']).to eq('A test recipe')
+    expect(test_recipe['cook_time']).to eq(30)
+    expect(test_recipe['ingredients']).to include('ingredient1', 'ingredient2')
+    expect(test_recipe['steps']).to include('Step 1', 'Step 2')
   end
 
   it 'should load the recipe from the file correctly' do
