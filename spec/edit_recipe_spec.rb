@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Edit Recipe' do
+describe 'Story 3: Edit and Delete Recipe' do
   before(:each) do
     # Make sure old test recipes do not exist
     post '/recipes/test-recipe/delete'

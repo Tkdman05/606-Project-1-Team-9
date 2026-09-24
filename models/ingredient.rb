@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# ingredient.rb
 class Ingredient
   attr_accessor :name, :available
 

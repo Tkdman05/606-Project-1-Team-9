@@ -33,15 +33,21 @@ rspec spec/<filename_spec>.rb
 
 - coverage/index.html to see the coverage report
 
+- To reset data do default state
+``` bash
+rake reset_data
+```
+
 ### Main features:
 - 4 Built-in, ready-to-make recipes
 - Recipe creation, allowing users to save custom recipes/ingredients
 - Search bar for recipes
 - Filter based on the recipes, ingredients & cook time
+- Ingredient management for easy organization
+- Shopping list generator to see what ingredients are needed for select recipes
 
 ### Limitations:
 - Ingredient list is not case sensitive (ie: Bread & bread can both exist)
 - Page reloads after every alteration
-- Ingredient tracking & shopping list not implemented yet
 
 ### Members: Wyatt Soper & Aditi Chidambara

@@ -3,7 +3,7 @@
 <div class="container">
   
   <header class="page-header">
-    <h1>🛒 Shopping List</h1>
+    <h1>Shopping List</h1>
     <p>Ingredients you need to buy</p>
   </header>
 
@@ -31,10 +31,19 @@
         <ul style="list-style-type: none; padding: 0;">
           <% missing_ingredients.each do |ingredient| %>
             <li style="padding: 8px 0; border-bottom: 1px solid #eee;">
-              <input type="checkbox" id="<%= ingredient %>">
-              <label for="<%= ingredient %>" style="margin-left: 8px; font-size: 16px;">
-                <%= ingredient %>
-              </label>
+              <form action="/ingredients/toggle" method="post" style="display: inline;">
+                <input type="hidden" name="name" value="<%= ingredient %>">
+                <input type="hidden" name="from_shopping_list" value="true">
+                <input 
+                  type="checkbox" 
+                  id="<%= ingredient %>"
+                  onchange="this.form.submit()"
+                  style="cursor: pointer;"
+                >
+                <label for="<%= ingredient %>" style="margin-left: 8px; font-size: 16px; cursor: pointer;">
+                  <%= ingredient %>
+                </label>
+              </form>
             </li>
           <% end %>
         </ul>
@@ -44,14 +53,6 @@
         </p>
       <% end %>
     </div>
-
-    <!-- Debug info (optional - remove later) -->
-    <details style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
-      <summary>Debug Info (click to expand)</summary>
-      <p><strong>All needed ingredients:</strong> <%= all_needed_ingredients.join(', ') %></p>
-      <p><strong>Available ingredients:</strong> <%= available_ingredient_names.join(', ') %></p>
-      <p><strong>Missing ingredients:</strong> <%= missing_ingredients.join(', ') %></p>
-    </details>
 
     <!-- Back button -->
     <a href="/" style="display: inline-block; background-color: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
