@@ -47,10 +47,6 @@
             Use My Ingredients
           </button>
 
-          <a href="/ingredients">
-            Manage My Ingredients
-          </a>
-
         </div>
 
 
@@ -141,10 +137,17 @@
 
         <a
           href="/ingredients"
-          class="ingredient-manager-btn"
+          class="add-recipe-btn"
         >
-          My Ingredients
+          Manage Ingredients
         </a>
+
+        <!-- Add Shopping List Form and Button -->
+        <form action="/shopping-list" method="post" id="shopping-list-form" style="display: inline;">
+          <button type="submit" class="add-recipe-btn" style="border: none; cursor: pointer;">
+            🛒 Generate Shopping List
+          </button>
+        </form>
 
       </div>
 
@@ -155,7 +158,6 @@
       </p>
 
     </div>
-
 
     <!-- No Results -->
     <% if recipes.empty? %>
@@ -279,6 +281,21 @@
               </a>
 
 
+            </div>
+
+            <!-- Add checkbox for selection -->
+            <div class="recipe-select">
+              <input 
+                type="checkbox" 
+                name="selected_recipes[]" 
+                value="<%= recipe.name %>"
+                form="shopping-list-form"
+                class="recipe-checkbox"
+                id="recipe-<%= recipe.name.downcase.gsub(" ", "-") %>"
+              >
+              <label for="recipe-<%= recipe.name.downcase.gsub(" ", "-") %>">
+                Add to shopping list
+              </label>
             </div>
 
           </article>

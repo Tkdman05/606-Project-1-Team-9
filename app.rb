@@ -769,3 +769,49 @@ post '/ingredients/toggle' do
   redirect '/ingredients'
 
 end
+
+# --------------------------------------------------
+# GENERATE SHOPPING LIST
+# --------------------------------------------------
+
+post '/shopping-list' do
+  selected_recipe_names = params[:selected_recipes] || []
+  
+  if selected_recipe_names.empty?
+    return "<h1>No recipes selected</h1>
+            <p>Please go back and select at least one recipe.</p>
+            <a href='/'>Back to Home</a>"
+  end
+  
+  # Find the selected recipes
+  selected_recipes = recipes.select do |recipe|
+    selected_recipe_names.include?(recipe.name)
+  end
+  
+  # Get all ingredients needed for selected recipes
+  all_needed_ingredients = []
+  selected_recipes.each do |recipe|
+    all_needed_ingredients.concat(recipe.ingredients)
+  end
+  
+  # Remove duplicates and sort
+  all_needed_ingredients = all_needed_ingredients.map(&:downcase).uniq.sort
+  
+  # Get available ingredients (marked as "Have" in the system)
+  available_ingredient_names = ingredients
+    .select(&:available)
+    .map { |i| i.name.downcase }
+  
+  # Find missing ingredients (needed but not available)
+  missing_ingredients = all_needed_ingredients.reject do |ingredient|
+    available_ingredient_names.include?(ingredient.downcase)
+  end
+  
+  erb :shopping_list, locals: {
+    selected_recipes: selected_recipes,
+    missing_ingredients: missing_ingredients,
+    all_needed_ingredients: all_needed_ingredients,
+    available_ingredient_names: available_ingredient_names
+  }
+end
+

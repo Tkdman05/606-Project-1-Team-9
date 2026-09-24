@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="/style.css">
+
+<div class="container">
+  
+  <header class="page-header">
+    <h1>🛒 Shopping List</h1>
+    <p>Ingredients you need to buy</p>
+  </header>
+
+  <section>
+    
+    <!-- Show selected recipes -->
+    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+      <h2>Selected Recipes:</h2>
+      <ul>
+        <% selected_recipes.each do |recipe| %>
+          <li><%= recipe.name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <!-- Show missing ingredients -->
+    <div style="background-color: #fff; border: 2px solid #27ae60; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+      <h2>📝 Ingredients to Buy:</h2>
+      
+      <% if missing_ingredients.empty? %>
+        <p style="color: #27ae60; font-weight: bold;">
+          ✓ Great! You have all the ingredients needed for the selected recipes!
+        </p>
+      <% else %>
+        <ul style="list-style-type: none; padding: 0;">
+          <% missing_ingredients.each do |ingredient| %>
+            <li style="padding: 8px 0; border-bottom: 1px solid #eee;">
+              <input type="checkbox" id="<%= ingredient %>">
+              <label for="<%= ingredient %>" style="margin-left: 8px; font-size: 16px;">
+                <%= ingredient %>
+              </label>
+            </li>
+          <% end %>
+        </ul>
+        
+        <p style="margin-top: 20px; color: #666;">
+          Total items to buy: <strong><%= missing_ingredients.length %></strong>
+        </p>
+      <% end %>
+    </div>
+
+    <!-- Debug info (optional - remove later) -->
+    <details style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+      <summary>Debug Info (click to expand)</summary>
+      <p><strong>All needed ingredients:</strong> <%= all_needed_ingredients.join(', ') %></p>
+      <p><strong>Available ingredients:</strong> <%= available_ingredient_names.join(', ') %></p>
+      <p><strong>Missing ingredients:</strong> <%= missing_ingredients.join(', ') %></p>
+    </details>
+
+    <!-- Back button -->
+    <a href="/" style="display: inline-block; background-color: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+      ← Back to Recipes
+    </a>
+    
+  </section>
+  
+</div>

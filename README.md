@@ -30,13 +30,7 @@ rspec -fd
 ``` bash
 rspec spec/<filename_spec>.rb
 ```
-- To test suite: 
-``` bash
-rspec
-```
-``` bash
-rspec -fd
-```
+
 - coverage/index.html to see the coverage report
 
 ### Main features:
