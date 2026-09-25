@@ -30,3 +30,14 @@ Work completed:
 - Added matching and missing ingredient information to recipe results
 - Tested ingredient management and filtering functionality
 - Updated project documentation
+
+## Session 4 — 2026-09-25
+
+Driver: Wyatt
+Navigator: Aditi
+
+Work completed:
+- Testing & review of shopping list functionality
+- Analysis of bugs, including filter and shopping list
+- Refinement of UI and usability
+- Retrospective discussion
