@@ -30,8 +30,8 @@ rspec -fd
 ``` bash
 rspec spec/<filename_spec>.rb
 ```
-
-- coverage/index.html to see the coverage report
+- Run `rspec` to execute the test suite.
+- Open `coverage/index.html` in a browser to view the SimpleCov coverage report.
 
 - To reset data do default state
 ``` bash
