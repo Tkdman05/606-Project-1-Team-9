@@ -2,11 +2,13 @@
 
 require 'spec_helper'
 
-describe 'Edit Recipe' do
-  # Tests for editing an existing recipe
-
+describe 'Story 3: Edit and Delete Recipe' do
   before(:each) do
-    # Add a recipe to edit
+    # Make sure old test recipes do not exist
+    post '/recipes/test-recipe/delete'
+    post '/recipes/updated-recipe/delete'
+
+    # Add a fresh recipe for each test
     post '/recipes', {
       name: 'Test Recipe',
       description: 'A test recipe',
@@ -17,11 +19,11 @@ describe 'Edit Recipe' do
   end
 
   after(:each) do
-    # Delete the test recipe after each test
+    # Clean up both possible names
     post '/recipes/test-recipe/delete'
+    post '/recipes/updated-recipe/delete'
   end
 
-  # Story 4: Edit an existing recipe
   it 'should edit an existing recipe with correct details' do
     post '/recipes/test-recipe/update', {
       new_name: 'Updated Recipe',
@@ -43,7 +45,6 @@ describe 'Edit Recipe' do
     expect(last_response.body).to include('Updated Step 2')
   end
 
-  # Story 4: Delete an existing recipe
   it 'should delete an existing recipe' do
     post '/recipes/test-recipe/delete'
 
@@ -82,23 +83,28 @@ describe 'Edit Recipe' do
       steps: "Updated Step 1\nUpdated Step 2"
     }
 
-    # Read the recipes.json file
     recipes_data = JSON.parse(File.read('data/recipes.json'))
 
-    expect(recipes_data[5]['name']).to eq('Updated Recipe')
-    expect(recipes_data[5]['description']).to eq('An updated test recipe')
-    expect(recipes_data[5]['cook_time']).to eq(45)
-    expect(recipes_data[5]['ingredients']).to include('ingredient3', 'ingredient4')
-    expect(recipes_data[5]['steps']).to include('Updated Step 1', 'Updated Step 2')
+    updated_recipe = recipes_data.find do |recipe|
+      recipe['name'] == 'Updated Recipe'
+    end
+
+    expect(updated_recipe).not_to be_nil
+    expect(updated_recipe['description']).to eq('An updated test recipe')
+    expect(updated_recipe['cook_time']).to eq(45)
+    expect(updated_recipe['ingredients']).to include('ingredient3', 'ingredient4')
+    expect(updated_recipe['steps']).to include('Updated Step 1', 'Updated Step 2')
   end
 
   it 'should check that the deleted recipe is removed from the file' do
-    post '/recipes/grilled-cheese-sandwich/delete'
+    # Delete the temporary recipe instead of a default recipe
+    post '/recipes/test-recipe/delete'
 
-    # Read the recipes.json file
     recipes_data = JSON.parse(File.read('data/recipes.json'))
 
-    expect(recipes_data.any? { |r| r['name'] == 'Grilled Cheese Sandwich' }).to be false
+    expect(
+      recipes_data.any? { |recipe| recipe['name'] == 'Test Recipe' }
+    ).to be false
   end
 
   it 'should return 400 for invalid recipe data when editing' do

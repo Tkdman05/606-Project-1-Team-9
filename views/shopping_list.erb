@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="/style.css">
+
+<div class="container">
+  
+  <header class="page-header">
+    <h1>Shopping List</h1>
+    <p>Ingredients you need to buy</p>
+  </header>
+
+  <section>
+    
+    <!-- Show selected recipes -->
+    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+      <h2>Selected Recipes:</h2>
+      <ul>
+        <% selected_recipes.each do |recipe| %>
+          <li><%= recipe.name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <!-- Show missing ingredients -->
+    <div style="background-color: #fff; border: 2px solid #27ae60; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+      <h2>📝 Ingredients to Buy:</h2>
+      
+      <% if missing_ingredients.empty? %>
+        <p style="color: #27ae60; font-weight: bold;">
+          ✓ Great! You have all the ingredients needed for the selected recipes!
+        </p>
+      <% else %>
+        <ul style="list-style-type: none; padding: 0;">
+          <% missing_ingredients.each do |ingredient| %>
+            <li style="padding: 8px 0; border-bottom: 1px solid #eee;">
+              <form action="/ingredients/toggle" method="post" style="display: inline;">
+                <input type="hidden" name="name" value="<%= ingredient %>">
+                <input type="hidden" name="from_shopping_list" value="true">
+                <input 
+                  type="checkbox" 
+                  id="<%= ingredient %>"
+                  onchange="this.form.submit()"
+                  style="cursor: pointer;"
+                >
+                <label for="<%= ingredient %>" style="margin-left: 8px; font-size: 16px; cursor: pointer;">
+                  <%= ingredient %>
+                </label>
+              </form>
+            </li>
+          <% end %>
+        </ul>
+        
+        <p style="margin-top: 20px; color: #666;">
+          Total items to buy: <strong><%= missing_ingredients.length %></strong>
+        </p>
+      <% end %>
+    </div>
+
+    <!-- Back button -->
+    <a href="/" style="display: inline-block; background-color: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+      ← Back to Recipes
+    </a>
+    
+  </section>
+  
+</div>

@@ -220,3 +220,185 @@ body {
 .add-recipe-btn:hover {
   background: #0011ff;
 }
+
+/* Ingredient Manager */
+
+.ingredients-section {
+  max-width: 700px;
+}
+
+.ingredient-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.ingredient-list form {
+  margin: 0;
+}
+
+.inventory-ingredient {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.inventory-ingredient.available {
+  background-color: #e8f5e9;
+  border-color: #81c784;
+}
+
+.inventory-ingredient.missing {
+  background-color: #fafafa;
+  color: #666;
+}
+
+.ingredient-status {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.availability-text {
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.ingredient-manager-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  margin-left: 10px;
+  background: #6c757d;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.ingredient-manager-btn:hover {
+  background: #5a6268;
+}
+
+.back-link {
+  margin-top: 30px;
+}
+
+.back-link a {
+  color: #4f3b6d;
+  text-decoration: none;
+}
+
+.back-link a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .ingredient-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Recipe Ingredient Availability */
+
+.recipe-ingredient-list {
+  list-style: none;
+  padding: 0;
+  max-width: 500px;
+}
+
+.recipe-ingredient-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.ingredient-have {
+  background-color: #e8f5e9;
+  border-color: #81c784;
+}
+
+.ingredient-missing {
+  background-color: #fafafa;
+  color: #666;
+}
+
+.recipe-ingredient-list strong {
+  font-size: 14px;
+}
+
+/* My Ingredients Filter */
+
+.my-ingredients-filter {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.use-my-ingredients-btn {
+  padding: 9px 15px;
+  background-color: #535efc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.use-my-ingredients-btn:hover {
+  background-color: #0011ff;
+}
+
+.my-ingredients-filter a {
+  color: #4f3b6d;
+  text-decoration: none;
+}
+
+.my-ingredients-filter a:hover {
+  text-decoration: underline;
+}
+
+/* Ingredient Match Results */
+
+.ingredient-match {
+  margin: 15px 0;
+  padding: 12px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.match-percentage {
+  margin: 0 0 8px;
+}
+
+.match-count {
+  margin: 5px 0;
+}
+
+.missing-ingredients {
+  margin: 5px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.ready-to-cook {
+  display: inline-block;
+  margin: 5px 0;
+  padding: 6px 10px;
+  background-color: #e8f5e9;
+  border: 1px solid #81c784;
+  border-radius: 5px;
+  font-weight: bold;
+}

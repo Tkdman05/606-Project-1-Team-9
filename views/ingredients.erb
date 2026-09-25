@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="/style.css">
+
+<div class="container">
+
+  <header class="page-header">
+    <h1>My Ingredients</h1>
+    <p>Mark your ingredients with a click</p>
+  </header>
+
+  <section class="ingredients-section">
+
+    <div class="ingredient-list">
+
+      <% # Show available ingredients first %>
+      <% ingredients.select(&:available).each do |ingredient| %>
+        <form action="/ingredients/toggle" method="post">
+          <input
+            type="hidden"
+            name="name"
+            value="<%= ingredient.name %>"
+          >
+          <button
+            type="submit"
+            class="inventory-ingredient available"
+          >
+            <span class="ingredient-status">✓</span>
+            <span><%= ingredient.name %></span>
+            <span class="availability-text">: available</span>
+          </button>
+        </form>
+      <% end %>
+
+      <% # Show unavailable ingredients %>
+      <% ingredients.reject(&:available).each do |ingredient| %>
+        <form action="/ingredients/toggle" method="post">
+          <input
+            type="hidden"
+            name="name"
+            value="<%= ingredient.name %>"
+          >
+          <button
+            type="submit"
+            class="inventory-ingredient missing"
+          >
+            <span class="ingredient-status">✕</span>
+            <span><%= ingredient.name %></span>
+            <span class="availability-text">: unavailable</span>
+          </button>
+        </form>
+      <% end %>
+
+    </div>
+
+  </section>
+
+  <p class="back-link">
+    <a href="/">← Back to recipes</a>
+  </p>
+
+</div>
