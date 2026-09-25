@@ -215,13 +215,22 @@ get '/' do
 
   max_time = params[:max_time]
 
-  use_my_ingredients =
-    params[:use_my_ingredients] == 'true'
+  add_my_ingredients =
+    params[:add_my_ingredients] == 'true'
+
+  if add_my_ingredients
+    pantry_ingredients =
+      ingredients
+      .select(&:available)
+      .map(&:name)
+
+    selected_ingredients =
+      (selected_ingredients + pantry_ingredients).uniq
+  end
 
   filtered_recipes = recipes
 
   recipe_matches = {}
-
 
   # ------------------------------------------------
   # SEARCH BY RECIPE NAME
@@ -240,29 +249,14 @@ get '/' do
 
   end
 
-
   # ------------------------------------------------
   # DETERMINE WHICH INGREDIENTS TO USE
   # ------------------------------------------------
 
-  ingredients_being_used = []
-
-  if use_my_ingredients
-
-    # Use ingredients marked "Have" in My Ingredients
-    ingredients_being_used =
-      ingredients
-      .select(&:available)
-      .map(&:name)
-
-  elsif !selected_ingredients.empty?
-
-    # Use ingredients manually selected in the filter
-    ingredients_being_used =
-      selected_ingredients
-
-  end
-
+  ingredients_being_used =
+    selected_ingredients
+    .map(&:downcase)
+    .uniq
 
   # ------------------------------------------------
   # MATCH RECIPES WITH AVAILABLE INGREDIENTS
@@ -371,9 +365,6 @@ get '/' do
 
         selected_ingredients:
           selected_ingredients,
-
-        use_my_ingredients:
-          use_my_ingredients,
 
         recipe_matches:
           recipe_matches
