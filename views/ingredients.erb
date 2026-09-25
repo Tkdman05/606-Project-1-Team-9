@@ -4,44 +4,49 @@
 
   <header class="page-header">
     <h1>My Ingredients</h1>
-    <p>Mark the ingredients you currently have at home.</p>
+    <p>Mark your ingredients with a click</p>
   </header>
 
   <section class="ingredients-section">
 
     <div class="ingredient-list">
 
-      <% ingredients.each do |ingredient| %>
-
+      <% # Show available ingredients first %>
+      <% ingredients.select(&:available).each do |ingredient| %>
         <form action="/ingredients/toggle" method="post">
-
           <input
             type="hidden"
             name="name"
             value="<%= ingredient.name %>"
           >
-
           <button
             type="submit"
-            class="inventory-ingredient <%= ingredient.available ? 'available' : 'missing' %>"
+            class="inventory-ingredient available"
           >
-
-            <span class="ingredient-status">
-              <%= ingredient.available ? "✓" : "✕" %>
-            </span>
-
-            <span>
-              <%= ingredient.name %>
-            </span>
-
-            <span class="availability-text">
-              <%= ingredient.available ? "Have" : "Missing" %>
-            </span>
-
+            <span class="ingredient-status">✓</span>
+            <span><%= ingredient.name %></span>
+            <span class="availability-text">: available</span>
           </button>
-
         </form>
+      <% end %>
 
+      <% # Show unavailable ingredients %>
+      <% ingredients.reject(&:available).each do |ingredient| %>
+        <form action="/ingredients/toggle" method="post">
+          <input
+            type="hidden"
+            name="name"
+            value="<%= ingredient.name %>"
+          >
+          <button
+            type="submit"
+            class="inventory-ingredient missing"
+          >
+            <span class="ingredient-status">✕</span>
+            <span><%= ingredient.name %></span>
+            <span class="availability-text">: unavailable</span>
+          </button>
+        </form>
       <% end %>
 
     </div>

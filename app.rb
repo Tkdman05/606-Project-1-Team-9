@@ -9,7 +9,6 @@ require_relative 'models/ingredient'
 
 FileUtils.mkdir_p('data') unless File.directory?('data')
 
-
 # --------------------------------------------------
 # RECIPE PERSISTENCE
 # --------------------------------------------------
@@ -27,7 +26,6 @@ def save_recipes_to_file(recipes)
 
   File.write('data/recipes.json', JSON.pretty_generate(recipes_data))
 end
-
 
 def load_recipes_from_file
   return [] unless File.exist?('data/recipes.json')
@@ -50,7 +48,6 @@ def load_recipes_from_file
   end
 end
 
-
 # --------------------------------------------------
 # INGREDIENT PERSISTENCE
 # --------------------------------------------------
@@ -69,7 +66,6 @@ def save_ingredients_to_file(ingredients)
   )
 end
 
-
 def load_ingredients_from_file
   return [] unless File.exist?('data/ingredients.json')
 
@@ -87,7 +83,6 @@ def load_ingredients_from_file
     []
   end
 end
-
 
 # --------------------------------------------------
 # DEFAULT RECIPES
@@ -166,7 +161,6 @@ default_recipes = [
 
 ]
 
-
 # --------------------------------------------------
 # INITIALIZE RECIPES
 # --------------------------------------------------
@@ -178,7 +172,6 @@ if recipes.empty?
   save_recipes_to_file(recipes)
 end
 
-
 # --------------------------------------------------
 # INITIALIZE INGREDIENTS
 # --------------------------------------------------
@@ -189,25 +182,20 @@ recipe_ingredient_names =
   recipes.flat_map(&:ingredients).uniq.sort
 
 recipe_ingredient_names.each do |name|
-
-  unless ingredients.any? do |ingredient|
-           ingredient.name.downcase == name.downcase
-         end
-
-    ingredients << Ingredient.new(name, false)
-
+  next if ingredients.any? do |ingredient|
+    ingredient.name.downcase == name.downcase
   end
+
+  ingredients << Ingredient.new(name, false)
 end
 
 save_ingredients_to_file(ingredients)
-
 
 # --------------------------------------------------
 # ROUTES
 # --------------------------------------------------
 
 get '/' do
-
   search = params[:search]
 
   selected_ingredients =
@@ -240,11 +228,9 @@ get '/' do
 
     filtered_recipes =
       filtered_recipes.select do |recipe|
-
         recipe.name
               .downcase
               .include?(search.downcase.strip)
-
       end
 
   end
@@ -258,6 +244,8 @@ get '/' do
     .map(&:downcase)
     .uniq
 
+
+
   # ------------------------------------------------
   # MATCH RECIPES WITH AVAILABLE INGREDIENTS
   # ------------------------------------------------
@@ -267,28 +255,20 @@ get '/' do
     available_names =
       ingredients_being_used.map(&:downcase)
 
-
     filtered_recipes.each do |recipe|
-
       matching_ingredients =
         recipe.ingredients.select do |recipe_ingredient|
-
           available_names.include?(
             recipe_ingredient.downcase
           )
-
         end
-
 
       missing_ingredients =
         recipe.ingredients.reject do |recipe_ingredient|
-
           available_names.include?(
             recipe_ingredient.downcase
           )
-
         end
-
 
       recipe_matches[recipe.name] = {
 
@@ -302,25 +282,19 @@ get '/' do
           missing_ingredients
 
       }
-
     end
-
 
     # Remove recipes where none of the ingredients match
     filtered_recipes =
       filtered_recipes.select do |recipe|
-
         recipe_matches[
           recipe.name
-        ][:matching_count] > 0
-
+        ][:matching_count].positive?
       end
-
 
     # Show recipes with the most matching ingredients first
     filtered_recipes =
       filtered_recipes.sort_by do |recipe|
-
         match =
           recipe_matches[recipe.name]
 
@@ -328,11 +302,9 @@ get '/' do
           -match[:matching_count],
           match[:missing].length
         ]
-
       end
 
   end
-
 
   # ------------------------------------------------
   # FILTER BY MAXIMUM COOKING TIME
@@ -342,17 +314,13 @@ get '/' do
 
     filtered_recipes =
       filtered_recipes.select do |recipe|
-
         recipe.cook_time <= max_time.to_i
-
       end
 
   end
 
-
   all_ingredients =
     recipes.flat_map(&:ingredients).uniq.sort
-
 
   erb :index,
       locals: {
@@ -369,30 +337,24 @@ get '/' do
         recipe_matches:
           recipe_matches
       }
-
 end
-
 
 # --------------------------------------------------
 # SHOW ALL RECIPES
 # --------------------------------------------------
 
 get '/recipes' do
-
   erb :recipes,
       locals: {
         recipes: recipes
       }
-
 end
-
 
 # --------------------------------------------------
 # SHOW SPECIFIC RECIPE
 # --------------------------------------------------
 
 get '/recipes/:name' do
-
   if params[:name] == 'new'
 
     erb :new_recipe
@@ -401,14 +363,11 @@ get '/recipes/:name' do
 
     recipe =
       recipes.find do |r|
-
         r.name
          .downcase
          .gsub(' ', '-') ==
           params[:name]
-
       end
-
 
     if recipe
 
@@ -430,16 +389,13 @@ get '/recipes/:name' do
     end
 
   end
-
 end
-
 
 # --------------------------------------------------
 # ADD NEW RECIPE
 # --------------------------------------------------
 
 post '/recipes' do
-
   if params[:name].nil? ||
      params[:name].strip.empty? ||
 
@@ -460,10 +416,8 @@ post '/recipes' do
 
   end
 
-
   cook_time =
     params[:cook_time].to_i
-
 
   if cook_time <= 0
 
@@ -472,12 +426,10 @@ post '/recipes' do
 
   end
 
-
   recipe_ingredients =
     params[:ingredients]
     .split(',')
     .map(&:strip)
-
 
   steps =
     params[:steps]
@@ -485,45 +437,31 @@ post '/recipes' do
     .map(&:strip)
     .reject(&:empty?)
 
-
   new_recipe =
     Recipe.new(
-
       params[:name],
-
       params[:description],
-
       cook_time,
-
       recipe_ingredients,
-
       steps
     )
 
-
   recipes << new_recipe
-
 
   # Add new recipe ingredients to My Ingredients
   recipe_ingredients.each do |name|
-
-    unless ingredients.any? do |ingredient|
-             ingredient.name.downcase ==
-               name.downcase
-           end
-
-      ingredients <<
-        Ingredient.new(name, false)
-
+    next if ingredients.any? do |ingredient|
+      ingredient.name.downcase ==
+      name.downcase
     end
 
+    ingredients <<
+      Ingredient.new(name, false)
   end
-
 
   save_recipes_to_file(recipes)
 
   save_ingredients_to_file(ingredients)
-
 
   redirect(
     "/recipes/#{
@@ -532,26 +470,20 @@ post '/recipes' do
                 .gsub(' ', '-')
     }"
   )
-
 end
-
 
 # --------------------------------------------------
 # EDIT RECIPE PAGE
 # --------------------------------------------------
 
 get '/recipes/:name/edit' do
-
   recipe =
     recipes.find do |r|
-
       r.name
        .downcase
        .gsub(' ', '-') ==
         params[:name]
-
     end
-
 
   if recipe
 
@@ -566,16 +498,13 @@ get '/recipes/:name/edit' do
     'Recipe not found'
 
   end
-
 end
-
 
 # --------------------------------------------------
 # UPDATE RECIPE
 # --------------------------------------------------
 
 post '/recipes/:name/update' do
-
   if params[:new_name].nil? ||
      params[:new_name].strip.empty? ||
 
@@ -596,10 +525,8 @@ post '/recipes/:name/update' do
 
   end
 
-
   cook_time =
     params[:cook_time].to_i
-
 
   if cook_time <= 0
 
@@ -608,17 +535,13 @@ post '/recipes/:name/update' do
 
   end
 
-
   recipe =
     recipes.find do |r|
-
       r.name
        .downcase
        .gsub(' ', '-') ==
         params[:name]
-
     end
-
 
   if recipe
 
@@ -642,27 +565,20 @@ post '/recipes/:name/update' do
       .map(&:strip)
       .reject(&:empty?)
 
-
     # Add any new ingredients to My Ingredients
     recipe.ingredients.each do |name|
-
-      unless ingredients.any? do |ingredient|
-               ingredient.name.downcase ==
-                 name.downcase
-             end
-
-        ingredients <<
-          Ingredient.new(name, false)
-
+      next if ingredients.any? do |ingredient|
+        ingredient.name.downcase ==
+        name.downcase
       end
 
+      ingredients <<
+        Ingredient.new(name, false)
     end
-
 
     save_recipes_to_file(recipes)
 
     save_ingredients_to_file(ingredients)
-
 
     redirect(
       "/recipes/#{
@@ -678,26 +594,20 @@ post '/recipes/:name/update' do
     'Recipe not found'
 
   end
-
 end
-
 
 # --------------------------------------------------
 # DELETE RECIPE
 # --------------------------------------------------
 
 post '/recipes/:name/delete' do
-
   recipe =
     recipes.find do |r|
-
       r.name
        .downcase
        .gsub(' ', '-') ==
         params[:name]
-
     end
-
 
   if recipe
 
@@ -713,38 +623,29 @@ post '/recipes/:name/delete' do
     'Recipe not found'
 
   end
-
 end
-
 
 # --------------------------------------------------
 # INGREDIENT MANAGER
 # --------------------------------------------------
 
 get '/ingredients' do
-
   erb :ingredients,
       locals: {
         ingredients: ingredients
       }
-
 end
-
 
 # --------------------------------------------------
 # TOGGLE INGREDIENT AVAILABILITY
 # --------------------------------------------------
 
 post '/ingredients/toggle' do
-
   ingredient =
     ingredients.find do |item|
-
       item.name.downcase ==
         params[:name].downcase
-
     end
-
 
   if ingredient
 
@@ -754,9 +655,115 @@ post '/ingredients/toggle' do
       ingredients
     )
 
+    if File.exist?('data/shopping_list.json')
+
+      shopping_list_data = JSON.parse(File.read('data/shopping_list.json'))
+
+      available_ingredient_names = ingredients
+                                   .select(&:available)
+                                   .map { |i| i.name.downcase }
+
+      shopping_list_data['missing_ingredients'] = shopping_list_data['all_needed_ingredients'].reject do |ing|
+        available_ingredient_names.include?(ing.downcase)
+      end
+
+      shopping_list_data['last_updated'] = Time.now.to_s
+
+      File.write('data/shopping_list.json', JSON.pretty_generate(shopping_list_data))
+    end
+
   end
 
+  if params[:from_shopping_list] == 'true'
+    redirect '/shopping-list'
+  else
+    redirect '/ingredients'
+  end
+end
 
-  redirect '/ingredients'
+# --------------------------------------------------
+# GENERATE SHOPPING LIST
+# --------------------------------------------------
 
+post '/shopping-list' do
+  selected_recipe_names = params[:selected_recipes] || []
+
+  if selected_recipe_names.empty?
+    return "<h1>No recipes selected</h1>
+            <p>Please go back and select at least one recipe.</p>
+            <a href='/'>Back to Home</a>"
+  end
+
+  # Find the selected recipes
+  selected_recipes = recipes.select do |recipe|
+    selected_recipe_names.include?(recipe.name)
+  end
+
+  # Get all ingredients needed for selected recipes
+  all_needed_ingredients = []
+  selected_recipes.each do |recipe|
+    all_needed_ingredients.concat(recipe.ingredients)
+  end
+
+  # Remove duplicates and sort
+  all_needed_ingredients = all_needed_ingredients.map(&:downcase).uniq.sort
+
+  # Get available ingredients (marked as "Have" in the system)
+  available_ingredient_names = ingredients
+                               .select(&:available)
+                               .map { |i| i.name.downcase }
+
+  # Find missing ingredients (needed but not available)
+  missing_ingredients = all_needed_ingredients.reject do |ingredient|
+    available_ingredient_names.include?(ingredient.downcase)
+  end
+
+  # Save shopping list to file
+  shopping_list_data = {
+    selected_recipes: selected_recipes.map(&:name),
+    missing_ingredients: missing_ingredients,
+    all_needed_ingredients: all_needed_ingredients,
+    created_at: Time.now.to_s
+  }
+
+  File.write('data/shopping_list.json', JSON.pretty_generate(shopping_list_data))
+
+  erb :shopping_list, locals: {
+    selected_recipes: selected_recipes,
+    missing_ingredients: missing_ingredients,
+    all_needed_ingredients: all_needed_ingredients,
+    available_ingredient_names: available_ingredient_names
+  }
+end
+
+# --------------------------------------------------
+# VIEW SAVED SHOPPING LIST
+# --------------------------------------------------
+
+get '/shopping-list' do
+  # Check if shopping list file exists
+  if File.exist?('data/shopping_list.json')
+    # Load saved shopping list
+    shopping_list_data = JSON.parse(File.read('data/shopping_list.json'))
+
+    # Find the selected recipes
+    selected_recipes = recipes.select do |recipe|
+      shopping_list_data['selected_recipes'].include?(recipe.name)
+    end
+
+    # Get current available ingredients
+    available_ingredient_names = ingredients
+                                 .select(&:available)
+                                 .map { |i| i.name.downcase }
+
+    erb :shopping_list, locals: {
+      selected_recipes: selected_recipes,
+      missing_ingredients: shopping_list_data['missing_ingredients'],
+      all_needed_ingredients: shopping_list_data['all_needed_ingredients'],
+      available_ingredient_names: available_ingredient_names
+    }
+  else
+    # No saved shopping list
+    erb :no_shopping_list
+  end
 end

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Add Recipe' do
+describe 'Story 1: Add Recipe' do
   # Tests for adding a new recipe
 
   # Delete test recipe after each test

@@ -33,20 +33,21 @@ rspec spec/<filename_spec>.rb
 - Run `rspec` to execute the test suite.
 - Open `coverage/index.html` in a browser to view the SimpleCov coverage report.
 
+- To reset data do default state
+``` bash
+rake reset_data
+```
+
 ### Main features:
 - 4 Built-in, ready-to-make recipes
 - Recipe creation, allowing users to save custom recipes/ingredients
 - Search bar for recipes
-- Filter based on the recipes, ingredients and cook time
-- Ingredient manager for marking ingredients as "Have" or "Missing"
-- Persistent ingredient availability using JSON storage
-- Filter recipes using saved ingredients
-- Display the number of matching ingredients and any missing ingredients
-- Mark recipes as "Ready to Cook" when all required ingredients are available
+- Filter based on the recipes, ingredients & cook time
+- Ingredient management for easy organization
+- Shopping list generator to see what ingredients are needed for select recipes
 
 ### Limitations:
-- Ingredient list is not case-sensitive (ie: Bread & bread can both exist)
+- Ingredient list is not case sensitive (ie: Bread & bread can both exist)
 - Page reloads after every alteration
-- Shopping list generation is not yet implemented
 
 ### Members: Wyatt Soper & Aditi Chidambara

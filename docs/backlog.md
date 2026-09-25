@@ -29,7 +29,7 @@
 - Create ingredient search interface
 
 ### Story 7: As a home cook, I want to mark which ingredients I have at home
-1 Point Tasks: <u>Aditi Completed 9/22<u>
+3 Point Tasks: <u>Aditi Completed 9/22<u>
 - Display available and missing ingredients for recipes
 - Allow recipes to be filtered using saved ingredients
 - Create Ingredient class and manager
@@ -37,7 +37,7 @@
 - Implement ingredient persistence
 
 ### Story 8: As a home cook, I want to generate a shopping list for a specific recipe
-2 Point Tasks: To Do
+3 Point Tasks: <u>Wyatt Completed 9/24<u>
 - Implement shopping list generation
 - Create shopping list display
 

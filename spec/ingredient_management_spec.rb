@@ -3,7 +3,7 @@
 require_relative 'spec_helper'
 require_relative '../app'
 
-RSpec.describe 'Ingredient Management' do
+RSpec.describe 'Story 7: Ingredient Management' do
   include Rack::Test::Methods
 
   def app

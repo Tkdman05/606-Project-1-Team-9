@@ -47,10 +47,6 @@
             Add My Ingredients
           </button>
 
-          <a href="/ingredients">
-            Manage My Ingredients
-          </a>
-
         </div>
 
 
@@ -80,6 +76,7 @@
 
 
         <!-- Cooking Time Filter -->
+        <br>
         <h3>Maximum Cooking Time</h3>
 
         <div class="time-filter">
@@ -120,6 +117,23 @@
 
   </section>
 
+  <!-- Shopping List -->
+  <div class="recipes-header">
+
+    <h2>Shopping List</h2>
+
+    <a
+      href="/shopping-list"
+      class="add-recipe-btn"
+    >
+      See Shopping List
+    </a>
+
+    <form action="/shopping-list" method="post" id="shopping-list-form" style="display: inline;">
+      <button type="submit" class="add-recipe-btn" style="border: none; cursor: pointer; font-family: inherit; font-size: inherit;">
+        New Shopping List
+      </button>
+    </form>
 
   <!-- Recipes -->
   <section class="recipes-section">
@@ -127,7 +141,6 @@
     <div class="recipes-header">
 
       <h2>Recipes</h2>
-
 
       <div class="add-recipe-section">
 
@@ -141,21 +154,20 @@
 
         <a
           href="/ingredients"
-          class="ingredient-manager-btn"
+          class="add-recipe-btn"
         >
-          My Ingredients
+          Manage Ingredients
         </a>
+
 
       </div>
 
-
-      <p>
+      <p style="margin-top: 20px;">
         Showing <%= recipes.length %>
         <%= recipes.length == 1 ? "recipe" : "recipes" %>
       </p>
 
     </div>
-
 
     <!-- No Results -->
     <% if recipes.empty? %>
@@ -279,6 +291,22 @@
               </a>
 
 
+            </div>
+
+            <!-- Add checkbox for selection -->
+            <div class="recipe-select" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+              <input 
+                type="checkbox" 
+                name="selected_recipes[]" 
+                value="<%= recipe.name %>"
+                form="shopping-list-form"
+                class="recipe-checkbox"
+                id="recipe-<%= recipe.name.downcase.gsub(" ", "-") %>"
+                style="margin-right: 8px;"
+              >
+              <label for="recipe-<%= recipe.name.downcase.gsub(" ", "-") %>" style="cursor: pointer;">
+                Add to shopping list
+              </label>
             </div>
 
           </article>
