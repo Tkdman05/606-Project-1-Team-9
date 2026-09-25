@@ -21,4 +21,28 @@ RSpec.configure do |config|
   def app
     Sinatra::Application
   end
+
+  data_files = [
+    'data/recipes.json',
+    'data/ingredients.json',
+    'data/shopping_list.json'
+  ]
+
+  config.before(:suite) do
+    data_files.each do |file|
+      next unless File.exist?(file)
+
+      FileUtils.cp(file, "#{file}.test_backup")
+    end
+  end
+
+  config.after(:suite) do
+    data_files.each do |file|
+      backup = "#{file}.test_backup"
+
+      next unless File.exist?(backup)
+
+      FileUtils.mv(backup, file, force: true)
+    end
+  end
 end
